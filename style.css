@@ -9,3 +9,7 @@
     margin-right: 20%;
     
 }
+div.card-body{
+    text-align: center;
+    font-size: 200%;
+}
