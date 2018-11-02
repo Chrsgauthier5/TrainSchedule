@@ -41,11 +41,11 @@ $(document).ready(function () {
 
 
 
-        // this checks to ensure all fields are filled out with something before allowing user to submit
-        //   if (trainName == "" || trainDestination == "" || firstTrainTime == "" || trainFrequency == 0){
-        //       alert("Please fill out all fields!");
-        //       return;
-        //   }
+        this checks to ensure all fields are filled out with something before allowing user to submit
+          if (trainName == "" || trainDestination == "" || firstTrainTime == "" || trainFrequency == 0){
+              alert("Please fill out all fields!");
+              return;
+          }
 
         //   console.log(trainName)
         //   console.log(trainDestination)
