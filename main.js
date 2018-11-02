@@ -22,7 +22,7 @@ $(document).ready(function () {
     $("#submitButton").on("click", function (event) {
         event.preventDefault();
 
-        // variables that are set via user input
+        // variable values that are set via user input
         trainName = $("#trainInput").val().trim();
         trainDestination = $("#destinationInput").val().trim();
         firstTrainTime = $("#firstTrainInput").val().trim();
@@ -45,17 +45,15 @@ $(document).ready(function () {
         });
     })
 
-    database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+    database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
 
 
-        firstTrainTimeConverted = moment(firstTrainTime, 'HH:mm').subtract(1, 'years');
-        diffTime = moment().diff(moment(firstTrainTimeConverted), 'minutes');
-        console.log(diffTime)
-        tRemainder = diffTime % trainFrequency
-        minutesUntilNext = trainFrequency - tRemainder; //Minutes until next arrival
-        console.log(minutesUntilNext);
-        nextArrival = moment().add(minutesUntilNext, "minutes").format("HH:mm");
-        console.log(nextArrival);
+        var firstTrainTimeConverted = moment(firstTrainTime, 'HH:mm').subtract(1, 'years');
+        var diffTime = moment().diff(moment(firstTrainTimeConverted), 'minutes');
+        var tRemainder = diffTime % trainFrequency
+        var minutesUntilNext = trainFrequency - tRemainder; //Minutes until next arrival
+        var nextArrival = moment().add(minutesUntilNext, "minutes").format("HH:mm");
+        
 
         var sv = snapshot.val();
         var emptyTR = $("<tr>")
