@@ -29,28 +29,11 @@ $(document).ready(function () {
         trainFrequency = $("#frequencyInput").val().trim();
 
 
-        firstTrainTimeConverted = moment(firstTrainTime, 'HH:mm').subtract(1, 'years');
-        diffTime = moment().diff(moment(firstTrainTimeConverted), 'minutes');
-        console.log(diffTime)
-        tRemainder = diffTime % trainFrequency
-        minutesUntilNext = trainFrequency - tRemainder; //Minutes until next arrival
-        console.log(minutesUntilNext);
-
-        nextArrival = moment().add(minutesUntilNext, "minutes").format("HH:mm");
-        console.log(nextArrival);
-
-
-
         //this checks to ensure all fields are filled out with something before allowing user to submit
           if (trainName == "" || trainDestination == "" || firstTrainTime == "" || trainFrequency == 0){
               alert("Please fill out all fields!");
               return;
           }
-
-        //   console.log(trainName)
-        //   console.log(trainDestination)
-        //   console.log(firstTrainTime)
-        //   console.log(trainFrequency)
 
         database.ref().push({
 
@@ -64,8 +47,19 @@ $(document).ready(function () {
 
     database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
 
+
+        firstTrainTimeConverted = moment(firstTrainTime, 'HH:mm').subtract(1, 'years');
+        diffTime = moment().diff(moment(firstTrainTimeConverted), 'minutes');
+        console.log(diffTime)
+        tRemainder = diffTime % trainFrequency
+        minutesUntilNext = trainFrequency - tRemainder; //Minutes until next arrival
+        console.log(minutesUntilNext);
+        nextArrival = moment().add(minutesUntilNext, "minutes").format("HH:mm");
+        console.log(nextArrival);
+
         var sv = snapshot.val();
         var emptyTR = $("<tr>")
+
         var nameTD = $("<td>").text(sv.name);
         var destinationTD = $("<td>").text(sv.destination);
         var frequencyTD = $("<td>").text(sv.frequency);
@@ -77,7 +71,7 @@ $(document).ready(function () {
         emptyTR.append(destinationTD);
         emptyTR.append(frequencyTD);
         emptyTR.append(minsUntilTD);
-        emptyTR.append(nextArrival);
+        emptyTR.append(nextTD);
 
 
         $("tbody").append(emptyTR);
